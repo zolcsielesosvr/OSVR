@@ -1,0 +1,6 @@
+[submodule "OSVR-Core"]
+	path = OSVR-Core
+	url = https://github.com/zolcsielesosvr/OSVR-Core.git
+[submodule "SteamVR-OSVR"]
+	path = SteamVR-OSVR
+	url = https://github.com/zolcsielesosvr/SteamVR-OSVR.git
