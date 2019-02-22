@@ -4,3 +4,6 @@
 [submodule "SteamVR-OSVR"]
 	path = SteamVR-OSVR
 	url = https://github.com/zolcsielesosvr/SteamVR-OSVR.git
+[submodule "Libs/libfunctionality"]
+	path = Libs/libfunctionality
+	url = https://github.com/zolcsielesosvr/libfunctionality.git
