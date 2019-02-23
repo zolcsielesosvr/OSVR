@@ -7,3 +7,6 @@
 [submodule "Libs/libfunctionality"]
 	path = Libs/libfunctionality
 	url = https://github.com/zolcsielesosvr/libfunctionality.git
+[submodule "Libs/DirectShow"]
+	path = Libs/DirectShow
+	url = https://github.com/zolcsielesosvr/DirectShow.git
