@@ -14,7 +14,7 @@ def download_opencv():
     if tag != None:
         command.append("--branch")
         command.append(tag)
-    command.append("--recurse-submodules")
+    command.append("--recursive")
     command.append("https://github.com/opencv/opencv.git")
     command.append("OpenCV")
     subprocess.run(command)
@@ -59,7 +59,7 @@ def download_boost():
     if tag != None:
         command.append("--branch")
         command.append(tag)
-    command.append("--recurse-submodules")
+    command.append("--recursive")
     command.append("https://github.com/boostorg/boost.git")
     command.append("Boost")
     subprocess.run(command)
@@ -97,13 +97,15 @@ def init_libfunctionality():
     cmake.build()
     cmake.set_build_target("INSTALL")
     cmake.build()
+    cmake.set_build_config("Release")
+    cmake.build()
 
 def main():
     dir = zls.Dirs("..")
     #download_all_submodules()
-    #init_libfunctionality()
-    init_opencv()
     #init_boost()
+    #init_opencv()
+    init_libfunctionality()
 
 if __name__ == "__main__":
     main()

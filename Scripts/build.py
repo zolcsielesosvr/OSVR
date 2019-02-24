@@ -1,13 +1,14 @@
 import subprocess
 import zls
+import os
 
 def config_osvr_core(build = "Debug"):
+    root = os.getcwd() + "/"
     dirs = zls.Dirs("OSVR-Core")
     dirs.mkdir("build", True)
 
     cmake = zls.CMake()
 
-    root = "c:/osvr_development/OSVR/"
     libroot = root + "Libs/"
     cmake.add_definition("libfunctionality_DIR", libroot +"libfunctionality/install")
     cmake.add_definition("DIRECTSHOW_QEDIT_INCLUDE_DIR", libroot + "DirectShow/include/")
@@ -17,7 +18,7 @@ def config_osvr_core(build = "Debug"):
     cmake.add_definition("JsonCpp_INCLUDE_DIR", root + "OSVR-Core/vendor/vrpn/submodules/jsoncpp/include")
     cmake.add_definition("JsonCpp_LIBRARY", root + "OSVR-Core/vendor/vrpn/submodules/jsoncpp/build/lib/" + build + "/jsoncpp.lib")
     cmake.add_definition("BOOST_ROOT", "C:/Boost")
-    cmake.add_definition("CMAKE_CXX_FLAGS", "/D_SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING /EHsc /MP") #/EHsc
+    cmake.add_definition("CMAKE_CXX_FLAGS", "/D_SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING /EHsc /MP")
     #cmake.add_definition("BOOST_INCLUDEDIR", "C:/Boost/include/boost-1_70")
 
     proc = cmake.config()
@@ -44,6 +45,10 @@ def config_jsoncpp():
     dirs.chdir("jsoncpp")
     dirs.mkdir("build", True)
     cmake = zls.CMake()
+    cmake.add_definition("JSONCPP_WITH_TESTS", "OFF")
+    cmake.add_definition("JSONCPP_WITH_POST_BUILD_UNITTEST", "OFF")
+    #cmake.add_definition("JSONCPP_WITH_CMAKE_PACKAGE", "ON")
+    #cmake.add_definition("CMAKE_INSTALL_PREFIX")
     cmake.config()
 
 def build_jsoncpp():
@@ -59,13 +64,27 @@ def build_jsoncpp():
     cmake.set_build_config("Release")
     cmake.build()
 
+def install_jsoncpp():
+    dirs = zls.Dirs("OSVR-Core")
+    dirs.chdir("vendor")
+    dirs.chdir("vrpn")
+    dirs.chdir("submodules")
+    dirs.chdir("jsoncpp")
+    dirs.chdir("build")
+    cmake = zls.CMake()
+    cmake.set_build_config("Debug")
+    cmake.set_build_target("install")
+    cmake.build()
+
+
 def main():
     dirs = zls.Dirs("..")
-    #config_jsoncpp()
-    #build_jsoncpp()
+    config_jsoncpp()
+    build_jsoncpp()
+    #install_jsoncpp()
     config_osvr_core()
     build_osvr_core()
-    #install_osvr_core()
+    install_osvr_core()
 
 if __name__=="__main__":
     main()
