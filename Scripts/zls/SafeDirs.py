@@ -9,8 +9,11 @@ class Dirs:
     def chdir(self, path):
         os.chdir(path)
 
+    def exists(self, path):
+        return os.path.exists(path)
+
     def mkdir(self, path, change = False):
-        if not os.path.exists(path):
+        if not self.exists(path):
             os.mkdir(path)
         if change:
             os.chdir(path)
